@@ -240,21 +240,18 @@ function degToRad(deg) {
 }
 
 function intersectionPoint(x1, y1, x2, y2, x3, y3, x4, y4) {
-    let tTop = (x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4);
-    let uTop = (x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3);
-    let bot = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-
-    let t = tTop/bot;
-    let u = uTop/bot;
-
-    if ((0 <= t && t <= 1) || (0 <= u && u <= 1)) {
-        let xTop = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
-        let yTop = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
-        
-        let x = xTop/bot;
-        let y = yTop/bot;
-    
-        return new Point(x, y)
+    //https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+    //https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting
+    const bot = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+    if (bot == 0) {
+      return null;
     }
-    else {return null}
+    const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / bot;
+    const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / bot;
+    if (0 < t && t < 1 && 1 > u && u > 0) {
+      return new Point(x1 + t * (x2 - x1), y1 + t * (y2 - y1));
+    } 
+    else {
+      return null;
+    }
 }
