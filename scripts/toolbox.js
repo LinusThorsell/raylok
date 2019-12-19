@@ -159,17 +159,22 @@ function getLogo(frame) {
 
 class Ray {
     constructor(rad) {
-        this.p1 = new Point(player.getPos().x, player.getPos().y);
-        this.p2 = this.calculateRay()
+        this.p1, this.p2;
         this.rad = rad;
-        this.length = 100;
+        this.length = 1000;
+        this.calculateRay();
     }
-    //TODO FIX MAKING 2nd POINT
     calculateRay() {
-        let y = Math.sin(rad) * this.length;
-        let x = Math.cos(rad) * this.length;
-        p1 = new Point(player.getPos().x, player.getPos().y)
-        p2 = new Point(x, y);
+        let addedX = Math.cos(this.rad) * this.length;
+        let addedY = Math.sin(this.rad) * this.length;
+        this.p1 = new Point(player.getPos().x, player.getPos().y)
+        this.p2 = new Point(player.getPos().x + addedX, player.getPos().y + addedY);
+    }
+    getP1() {
+        return this.p1;
+    }
+    getP2() {
+        return this.p2;
     }
 }
 class Player {
@@ -177,9 +182,14 @@ class Player {
         this.x = x;
         this.y = y;
         this.speed = 3;
+        this.rotationalSpeed = 5;
+        this.direction = 0;
     }
     getPos() {
         return new Point(this.x, this.y)
+    }
+    getDirection() {
+        return this.direction;
     }
     move(direction) {
         switch(direction) {
@@ -194,6 +204,13 @@ class Player {
                 break;
             case 3:
                 this.y += this.speed;
+                break;
+            case 4:
+                this.direction -= this.rotationalSpeed;
+                break;
+            case 5:
+                this.direction += this.rotationalSpeed;
+                break;
         }
     }
 }
@@ -210,10 +227,34 @@ class Line {
         this.y1 = y1;
         this.y2 = y2;
     }
-    getXPoint() {
-        return new Point(this.x1, this.x2);
+    getP1() {
+        return new Point(this.x1, this.y1);
     }
-    getYPoint() {
-        return new Point(this.y1, this.y2);
+    getP2() {
+        return new Point(this.x2, this.y2);
     }
+}
+
+function degToRad(deg) {
+    return deg * (Math.PI/180);
+}
+
+function intersectionPoint(x1, y1, x2, y2, x3, y3, x4, y4) {
+    let tTop = (x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4);
+    let uTop = (x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3);
+    let bot = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+
+    let t = tTop/bot;
+    let u = uTop/bot;
+
+    if ((0 <= t && t <= 1) || (0 <= u && u <= 1)) {
+        let xTop = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
+        let yTop = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
+        
+        let x = xTop/bot;
+        let y = yTop/bot;
+    
+        return new Point(x, y)
+    }
+    else {return null}
 }
