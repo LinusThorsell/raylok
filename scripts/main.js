@@ -1,6 +1,6 @@
 $(document).ready(() => {
     startEngine();
-    //initializeGame();
+    initializeGame();
 });
 
 function initializeGame() {
@@ -19,9 +19,10 @@ function splashScreen() {
 function recursiveFrames(f, frames, loop, totalLoops) {
     if (f < frames+1) {
         let frame = "";
-        frame += getWhiteLines(5);    
+        frame += getWhiteLines(5, false);    
         frame += getLogo(f);
-        frame += getWhiteLines(5);
+        frame += getWhiteLines(4, false);
+        frame += getWhiteLines(1, true)
         $("#game").val(frame)
         setTimeout(() => {
             recursiveFrames(f+1, frames, loop, totalLoops);

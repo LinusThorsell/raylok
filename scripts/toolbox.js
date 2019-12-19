@@ -1,8 +1,15 @@
-function getWhiteLines(count) {
+function getWhiteLines(count, last) {
     let content = "";
-    for (let c = 0; c < count; c++) {
-        content += "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
+    
+    if (!last) {
+        for (let c = 0; c < count; c++) {
+            content += "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
+        }
     }
+    else {
+        content += "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -";
+    }
+
     return content;
 }
 function getLogo(frame) {
