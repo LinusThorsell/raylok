@@ -25,6 +25,7 @@ function generateWorld() {
 function gameLoop() {
     cleanUp();
     tick();
+    drawGraphics();
     drawMap();
     drawPlayer();
 }
@@ -45,6 +46,20 @@ function cleanData() {
 
 function tick() {
     movePlayer();
+}
+function drawGraphics() {
+    let html = "";
+    let res = 20;
+    for (let i = 0; i < res; i++) {
+        if (intersects[i]) {
+            html += "<textarea class='linewidth' style='" + "color: rgb(0, " + (255 - intersects[i].getLength()) + ", 0);" + "'>------------------------------------</textarea>"
+        }
+        else {
+            html += "<textarea class='linewidth'></textarea>"
+        }        
+    }
+
+    $("#content--main").html(html);
 }
 
 function drawMap() {
@@ -94,8 +109,8 @@ let rays = [];
 function createRays() {
     rays = [];
     let startAngle = player.getDirection();
-    let rayCount = 16;
-    let displacementAngle = 5;
+    let rayCount = 20;
+    let displacementAngle = 3;
 
     for (let r = 0; r < rayCount; r++) {
         rays.push(new Ray(degToRad(startAngle + (r * displacementAngle))));
@@ -109,15 +124,26 @@ function drawRays() {
     }
     ctx.stroke();
 }
+let intersects = [];
 function drawIntersects() {
+    intersects = [];
     for (let r = 0; r < rays.length; r++) {
         for (let l = 0; l < lines.length; l++) {
             let p = intersectionPoint(rays[r].getP1().x, rays[r].getP1().y, rays[r].getP2().x, rays[r].getP2().y, lines[l].getP1().x, lines[l].getP1().y, lines[l].getP2().x, lines[l].getP2().y);
             if (p) {
+                let length = distance(player.getPos(), p);
+                //if (!intersects[r]) {
+                    intersects[r] = (new rayIntersection(p, r, length))
+                //}
+                //else if (intersects[r].getLength() > length) {
+                    intersects[r] = (new rayIntersection(p, r, length))
+                //}
+                //else {
+
+                //}
                 ctx.fillStyle = "#ff0000"
-                ctx.fillRect(p.x - 5, p.y - 5, 10, 10)
+                ctx.fillRect(intersects[r].getPoint().x - 5, intersects[r].getPoint().y - 5, 10, 10);
             }
         }
-
     }
 }

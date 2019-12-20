@@ -5,6 +5,19 @@ $(document).ready(() => {
 
 function initializeGame() {
     splashScreen();
+    tryNewSystem();
+}
+
+function tryNewSystem() {
+    $("#game").hide()
+    
+    let html = "";
+    let res = 20;
+    for (let i = 0; i < res; i++) {
+        html += "<textarea class='linewidth'></textarea>"
+    }
+
+    $("#content--main").html(html);
 }
 
 function splashScreen() {

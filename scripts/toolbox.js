@@ -168,7 +168,7 @@ class Ray {
     constructor(rad) {
         this.p1, this.p2;
         this.rad = rad;
-        this.length = 1000;
+        this.length = 250;
         this.calculateRay();
     }
     calculateRay() {
@@ -182,6 +182,22 @@ class Ray {
     }
     getP2() {
         return this.p2;
+    }
+}
+class rayIntersection {
+    constructor(point, rayId, length) {
+        this.point = point;
+        this.rayId = rayId;
+        this.length = length;
+    }
+    getId() {
+        return this.rayId;
+    }
+    getPoint() {
+        return this.point;
+    }
+    getLength() {
+        return this.length;
     }
 }
 class Player {
@@ -261,4 +277,8 @@ function intersectionPoint(x1, y1, x2, y2, x3, y3, x4, y4) {
     else {
       return null;
     }
+}
+
+function distance(p1, p2) {
+    return Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2));
 }
