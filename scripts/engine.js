@@ -132,18 +132,20 @@ function drawIntersects() {
             let p = intersectionPoint(rays[r].getP1().x, rays[r].getP1().y, rays[r].getP2().x, rays[r].getP2().y, lines[l].getP1().x, lines[l].getP1().y, lines[l].getP2().x, lines[l].getP2().y);
             if (p) {
                 let length = distance(player.getPos(), p);
-                //if (!intersects[r]) {
-                    intersects[r] = (new rayIntersection(p, r, length))
-                //}
-                //else if (intersects[r].getLength() > length) {
-                    intersects[r] = (new rayIntersection(p, r, length))
-                //}
-                //else {
 
-                //}
-                ctx.fillStyle = "#ff0000"
-                ctx.fillRect(intersects[r].getPoint().x - 5, intersects[r].getPoint().y - 5, 10, 10);
+                if (!intersects[r]) {
+                    intersects[r] = (new rayIntersection(p, r, length))
+                } 
+                else if (intersects[r].length > length) {
+                    intersects[r] = (new rayIntersection(p, r, length))
+                }
             }
+        }
+    }
+    for (let i = 0; i < intersects.length; i++) {
+        if (intersects[i]) {
+            ctx.fillStyle = "#ff0000"
+            ctx.fillRect(intersects[i].getPoint().x - 5, intersects[i].getPoint().y - 5, 10, 10);
         }
     }
 }
