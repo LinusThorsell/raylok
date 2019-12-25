@@ -13,49 +13,26 @@ html, body {
 #p--title {
     color: rgb(0, 120, 0);
 }
-#game {
-    padding-top: 2vh;
-    resize: none;
-    width: 70vh;
-    margin-top: 3vh;
-    height: 70vh;
-
-    border: 5px solid rgb(0, 120, 0);
-    background-color: rgb(0, 10, 0);
-
-    color: greenyellow;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 3vh;
-    text-align: center;
-}
 #content--main {
-    height: 72vh;
+    height: 71.5vh;
     width: 70vh;
     border: 5px solid rgb(0, 120, 0);
     background-color: rgb(0, 10, 0);
     color: red;
 }
 .linewidth {
-    width: 3.5vh;
+    width: 1.2vh;
     border: none;
     padding: 0;
     margin: 0;
     resize: none;
-    height: 70vh;
+    height: 71.5vh;
     background-color: rgb(0, 10, 0);
     float: left;
     color: greenyellow;
     font-family: 'VT323', monospace;
-    font-size: 4vh;
+    font-size: 1.4vh;
     overflow: hidden;
-}
-
-#content--map {
-    width: 70vh;
-    height: 70vh;
-    margin: 0 auto;
-    background-color: rgb(0, 10, 0);
-    border: 5px solid rgb(0, 120, 0);
 }
 #map--canvas {
     margin-top: 1vh;

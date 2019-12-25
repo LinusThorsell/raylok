@@ -183,6 +183,9 @@ class Ray {
     getP2() {
         return this.p2;
     }
+    getAngle() {
+        return this.rad;
+    }
 }
 class rayIntersection {
     constructor(point, rayId, length) {
@@ -279,6 +282,6 @@ function intersectionPoint(x1, y1, x2, y2, x3, y3, x4, y4) {
     }
 }
 
-function distance(p1, p2) {
-    return Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2));
+function distance(p1, p2, angle1, angle2) {
+    return Math.cos(angle1 - angle2) * Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2));
 }

@@ -1,14 +1,13 @@
 $(document).ready(() => {
-    startEngine();
-    initializeGame();
+    initializeGame(true);
 });
 
-function initializeGame() {
-    splashScreen();
-    tryNewSystem();
+function initializeGame(debug) {
+    startEngine(debug);
+    startRenderer();
 }
 
-function tryNewSystem() {
+function startRenderer() {
     $("#game").hide()
     
     let html = "";
@@ -30,6 +29,7 @@ function splashScreen() {
 }
 
 function recursiveFrames(f, frames, loop, totalLoops) {
+
     if (f < frames+1) {
         let frame = "";
         frame += getWhiteLines(5, false);    
