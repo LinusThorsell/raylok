@@ -16,25 +16,20 @@ function startEngine(debug) {
     }
 
     generateWorld();
-    player = new Player(100, 100);
+    player = new Player(50, 50);
     setInterval(gameLoop, 33);
 }
 
 function generateWorld() {
+    /*
     lines.push(new Line(0, 0, playArea, 0))
     lines.push(new Line(playArea, 0, playArea, playArea))
     lines.push(new Line(playArea, playArea, 0, playArea))
-    lines.push(new Line(0, playArea, 0, 0))
-
-    lines.push(new Line(250, 250, 250, 400));
-    lines.push(new Line(250, 400, 400, 400));
-    lines.push(new Line(400, 400, 250, 400));
-    lines.push(new Line(250, 400, 250, 250));
+    lines.push(new Line(0, playArea, 0, 0))*/
 
     let generated = generateMaze();
     generated.forEach(wall => {
         lines.push(wall);
-        console.log(wall)
     });
 }
 
