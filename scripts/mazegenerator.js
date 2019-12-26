@@ -2,8 +2,9 @@
 let generatedWalls = [];
 let visitStack = [];
 let cells = [];
-let xwidth = 10;
-let ywidth = 10;
+let xwidth = 15;
+let ywidth = 15;
+let treasure;
 function generateMaze(size) {
 
     for (let x = 0; x < xwidth; x++) {
@@ -30,6 +31,11 @@ function recursiveMazeGeneration(cs) {
         recursiveMazeGeneration(nextVisit);
     }
     else if (visitStack.length > 0) {
+        //Check if deepest point to hide the treasure
+        if (!treasure) {
+            treasure = visitStack[visitStack.length-1].getMiddleLocation();
+        }
+        
         //handle backtrack
         recursiveMazeGeneration(visitStack.pop())
     }
@@ -103,6 +109,7 @@ class Cell {
         this.row = row;
         this.walls = [true, true, true, true];
         this.visited = false;
+        this.middleLocation = new Point(this.coll * cellSize + cellSize/2, this.row * cellSize + cellSize/2);
     }
     getWalls() {
         let tempWalls = [];
@@ -150,5 +157,8 @@ class Cell {
     }
     hide() {
         this.walls = [false, false, false, false]
+    }
+    getMiddleLocation() {
+        return this.middleLocation;
     }
 }

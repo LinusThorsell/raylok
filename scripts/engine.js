@@ -5,7 +5,7 @@ let screenResolution = 58;
 let displacementAngle = 1.2;
 let isDebug = false;
 
-let playArea = 1000;
+let playArea = 2000;
 
 function startEngine(debug) {
     isDebug = debug;
@@ -211,6 +211,7 @@ function getGraphic(type, lines) {
 
 function drawMap() {
     drawLines();
+    drawTreasure();
 }
 function drawLines() {
     ctx.lineWidth = 1;
@@ -220,6 +221,13 @@ function drawLines() {
         ctx.lineTo(lines[l].getP2().x, lines[l].getP2().y);
     }
     ctx.stroke();
+}
+function drawTreasure() {
+    if (treasure) {
+        let treasureWidth = 25;
+        ctx.fillStyle = "#ffff00"
+        ctx.fillRect(treasure.x - treasureWidth/2, treasure.y - treasureWidth/2, treasureWidth, treasureWidth)
+    }
 }
 function movePlayer() {
     if (left) {
