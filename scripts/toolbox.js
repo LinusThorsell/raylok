@@ -219,18 +219,27 @@ class Player {
     }
     move(direction) {
         switch(direction) {
+            //left
             case 0:
-                this.x -= this.speed;
+                this.y += this.speed * Math.sin(degToRad(-90 + this.direction + ((screenResolution/2) * displacementAngle)));
+                this.x += this.speed * Math.cos(degToRad(-90 + this.direction + ((screenResolution/2) * displacementAngle)));
                 break;
+            //up
             case 1:
-                this.y -= this.speed;
+                this.y += this.speed * Math.sin(degToRad(this.direction + ((screenResolution/2) * displacementAngle)));
+                this.x += this.speed * Math.cos(degToRad(this.direction + ((screenResolution/2) * displacementAngle)));
                 break;
+            //right
             case 2:
-                this.x += this.speed;
+                this.y += this.speed * Math.sin(degToRad(90 + this.direction + ((screenResolution/2) * displacementAngle)));
+                this.x += this.speed * Math.cos(degToRad(90 + this.direction + ((screenResolution/2) * displacementAngle)));
                 break;
+            //down
             case 3:
-                this.y += this.speed;
+                this.y -= this.speed * Math.sin(degToRad(this.direction + ((screenResolution/2) * displacementAngle)));
+                this.x -= this.speed * Math.cos(degToRad(this.direction + ((screenResolution/2) * displacementAngle)));
                 break;
+            //rotation
             case 4:
                 this.direction -= this.rotationalSpeed;
                 break;

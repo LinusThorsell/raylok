@@ -2,6 +2,7 @@ var c, ctx, player, fps, lastCalledTime, averageFps;
 let lines = [];
 let fpsHistory = [];
 let screenResolution = 58;
+let displacementAngle = 1.2;
 let isDebug = false;
 
 let playArea = 1000;
@@ -29,6 +30,12 @@ function generateWorld() {
     lines.push(new Line(250, 400, 400, 400));
     lines.push(new Line(400, 400, 250, 400));
     lines.push(new Line(250, 400, 250, 250));
+
+    let generated = generateMaze();
+    generated.forEach(wall => {
+        lines.push(wall);
+        console.log(wall)
+    });
 }
 
 function gameLoop() {
@@ -62,7 +69,7 @@ function checkFramerate() {
     for (let i = 0; i < fpsHistory.length; i++) {
         averageFps += fpsHistory[i];
     }
-    console.log(averageFps/fpsHistory.length);
+    //console.log(averageFps/fpsHistory.length);
 }
 
 function cleanMap() {
@@ -253,7 +260,6 @@ let rays = [];
 function createRays() {
     rays = [];
     let startAngle = player.getDirection();
-    let displacementAngle = 1.2;
 
     for (let r = 0; r < screenResolution; r++) {
         rays.push(new Ray(degToRad(startAngle + (r * displacementAngle))));
